@@ -1,0 +1,7 @@
+apiVersion: v2
+icon: https://raw.githubusercontent.com/waylon/k8s-basic/master/helm-chart/logo.png
+name: k8s-pages
+description: A helm chart for basic container deployment
+type: application
+version: 1.0.0
+appVersion: "1.0"

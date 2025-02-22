@@ -1,0 +1,7 @@
+name: opengraph
+port: 8800
+image:
+  repository: registry.wayl.one
+  name: opengraph
+  tag: "0.0.1"
+imagePullSecret: cluster-regcred
