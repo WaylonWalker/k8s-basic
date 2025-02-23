@@ -9,8 +9,8 @@ imageTag: 0.0.1
 imagePullSecret: cluster-regcred
 minReplicas: 1
 maxReplicas: 3
-targetCPUUtilization: 4000
-cpuRequest: 10m
+targetCPUUtilization: 800
+cpuRequest: 50m
 cpuLimit: 500m
 memoryRequest: 100Mi
 memoryLimit: 500Mi
