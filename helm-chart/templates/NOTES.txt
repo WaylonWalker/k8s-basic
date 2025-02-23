@@ -1,0 +1,23 @@
+Thank you for installing {{ .Chart.Name }}.
+
+Your application has been deployed with the following configuration:
+- Name: {{ .Values.name }}
+- Domain: {{ .Values.domain }}
+- Port: {{ .Values.port }}
+
+To access your application:
+  https://{{ .Values.name }}.{{ .Values.domain }}
+
+To check the status of your pods:
+  kubectl get pods -n {{ .Values.namespace | default .Values.name }} -l service={{ .Values.name }}
+
+To view the logs:
+  kubectl logs -n {{ .Values.namespace | default .Values.name }} -l service={{ .Values.name }}
+
+For troubleshooting:
+1. Check pod status:
+   kubectl describe pod -n {{ .Values.namespace | default .Values.name }} -l service={{ .Values.name }}
+2. Check ingress status:
+   kubectl describe ingress -n {{ .Values.namespace | default .Values.name }} {{ .Values.name }}
+3. Check service status:
+   kubectl describe service -n {{ .Values.namespace | default .Values.name }} {{ .Values.name }}

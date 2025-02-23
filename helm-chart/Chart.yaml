@@ -1,6 +1,10 @@
 apiVersion: v2
+maintainers:
+  - name: Waylon Walker
+    email: waylon@waylonwalker.com
+kubeVersion: ">=1.19.0"
 icon: https://raw.githubusercontent.com/waylon/k8s-basic/master/helm-chart/logo.png
-name: k8s-pages
+name: k8s-basic
 description: A helm chart for basic container deployment
 type: application
 version: 1.0.0

@@ -15,9 +15,13 @@ spec:
       labels:
         service: {{ .Values.name }}
     spec:
+      securityContext:
+{{ toYaml .Values.podSecurityContext | indent 8 }}
       containers:
         - image: {{ .Values.image.repository }}/{{ .Values.image.name | default .Values.name }}:{{ .Values.image.tag }}
           name: {{ .Values.name }}
+          securityContext:
+{{ toYaml .Values.containerSecurityContext | indent 12 }}
           ports:
             - containerPort: {{ .Values.port }}
               protocol: TCP
@@ -30,21 +34,39 @@ spec:
               memory: {{ .Values.memoryLimit }}
           livenessProbe:
             httpGet:
-              path: /health
+              path: {{ .Values.probes.liveness.path }}
               port: {{ .Values.port }}
-            initialDelaySeconds: 15
-            periodSeconds: 20
+            initialDelaySeconds: {{ .Values.probes.liveness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.liveness.periodSeconds }}
+            timeoutSeconds: {{ .Values.probes.liveness.timeoutSeconds }}
+            failureThreshold: {{ .Values.probes.liveness.failureThreshold }}
+            successThreshold: {{ .Values.probes.liveness.successThreshold }}
           readinessProbe:
             httpGet:
-              path: /ready
+              path: {{ .Values.probes.readiness.path }}
               port: {{ .Values.port }}
-            initialDelaySeconds: 5
-            periodSeconds: 10
+            initialDelaySeconds: {{ .Values.probes.readiness.initialDelaySeconds }}
+            periodSeconds: {{ .Values.probes.readiness.periodSeconds }}
+            timeoutSeconds: {{ .Values.probes.readiness.timeoutSeconds }}
+            failureThreshold: {{ .Values.probes.readiness.failureThreshold }}
+            successThreshold: {{ .Values.probes.readiness.successThreshold }}
           startupProbe:
             httpGet:
-              path: /ready
+              path: {{ .Values.probes.readiness.path }}
               port: {{ .Values.port }}
             failureThreshold: 30
             periodSeconds: 10
       imagePullSecrets:
         - name: {{ .Values.imagePullSecret }}
+{{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+{{- end }}
+{{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+{{- end }}
+{{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+{{- end }}
