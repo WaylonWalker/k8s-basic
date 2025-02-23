@@ -16,7 +16,7 @@ spec:
         service: {{ .Values.name }}
     spec:
       containers:
-        - image: {{ .Values.image.repository }}/{{ .Values.name }}:{{ .Values.image.tag }}
+        - image: {{ .Values.image.repository }}/{{ .Values.image.name | default .Values.name }}:{{ .Values.image.tag }}
           name: {{ .Values.name }}
           ports:
             - containerPort: {{ .Values.port }}
@@ -28,5 +28,23 @@ spec:
             limits:
               cpu: {{ .Values.cpuLimit }}
               memory: {{ .Values.memoryLimit }}
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: {{ .Values.port }}
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: {{ .Values.port }}
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          startupProbe:
+            httpGet:
+              path: /ready
+              port: {{ .Values.port }}
+            failureThreshold: 30
+            periodSeconds: 10
       imagePullSecrets:
         - name: {{ .Values.imagePullSecret }}
