@@ -32,6 +32,9 @@ spec:
             limits:
               cpu: {{ .Values.cpuLimit }}
               memory: {{ .Values.memoryLimit }}
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
           livenessProbe:
             httpGet:
               path: {{ .Values.probes.liveness.path }}
@@ -56,6 +59,9 @@ spec:
               port: {{ .Values.port }}
             failureThreshold: 30
             periodSeconds: 10
+      volumes:
+        - name: tmp
+          emptyDir: {}
       imagePullSecrets:
         - name: {{ .Values.imagePullSecret }}
 {{- with .Values.nodeSelector }}
