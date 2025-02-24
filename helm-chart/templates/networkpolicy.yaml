@@ -17,9 +17,6 @@ spec:
         - namespaceSelector:
             matchLabels:
               name: kube-system
-          podSelector:
-            matchLabels:
-              app: traefik
       ports:
         - protocol: TCP
           port: {{ .Values.port }}
