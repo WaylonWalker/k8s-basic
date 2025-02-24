@@ -16,9 +16,9 @@ spec:
         - namespaceSelector:
             matchLabels:
               name: kube-system
-      ports:
-        - protocol: TCP
-          port: {{ .Values.port }}
+      # ports:
+      #   - protocol: TCP
+      #     port: {{ .Values.port }}
   # egress: 
     # TODO, optionally add egress restriction.
     # - to:
