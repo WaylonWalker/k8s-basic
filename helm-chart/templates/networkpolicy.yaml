@@ -11,7 +11,6 @@ spec:
       service: {{ .Values.name }}
   policyTypes:
     - Ingress
-    - Egress
   ingress:
     - from:
         - namespaceSelector:
@@ -20,8 +19,7 @@ spec:
       ports:
         - protocol: TCP
           port: {{ .Values.port }}
-  egress: 
-    - {}
+  # egress: 
     # TODO, optionally add egress restriction.
     # - to:
     #     - namespaceSelector: {}
