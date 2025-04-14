@@ -7,5 +7,5 @@ icon: https://raw.githubusercontent.com/waylon/k8s-basic/master/helm-chart/logo.
 name: k8s-basic
 description: A helm chart for basic container deployment
 type: application
-version: 1.0.0
+version: 1.0.1
 appVersion: "1.0"
