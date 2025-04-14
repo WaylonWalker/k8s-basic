@@ -14,6 +14,7 @@ spec:
     metadata:
       labels:
         service: {{ .Values.name }}
+      annotations:
         diun.enable: "true"
     spec:
       securityContext:
